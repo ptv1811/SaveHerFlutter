@@ -23,6 +23,30 @@ class _LoginState extends State<Login> {
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
         ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
+    final email=TextFormField(
+      obscureText: false,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(20),
+        labelText: "Email",
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.teal),
+          borderRadius: BorderRadius.circular(32.0)
+        )
+      ),
+    );
+
+    final password=TextFormField(
+      obscureText: false,
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(20),
+          labelText: "Password",
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(32.0)
+          )
+      ),
+    );
+
+
     return new Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: true,
@@ -53,7 +77,7 @@ class _LoginState extends State<Login> {
                   ),
                   Container(
                     width: double.infinity,
-                    height: ScreenUtil.getInstance().setHeight(500),
+                    height: ScreenUtil.getInstance().setHeight(550),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8.0),
@@ -70,15 +94,36 @@ class _LoginState extends State<Login> {
                         ),
                       ]
                     ),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 16.0, right: 16.0,top: 16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Save Her",
+                            style: TextStyle(
+                              fontSize: ScreenUtil.getInstance().setSp(45),
+                              fontFamily: "Avo",
+                              letterSpacing: .6,
+                            ),
+                          ),
+                          SizedBox(
+                            height: ScreenUtil.getInstance().setHeight(30),
+                          ),
+                          email,
+                          SizedBox(
+                            height: ScreenUtil.getInstance().setHeight(30),
+                          ),
+                          password,
+
+                        ],
+                      ),
+                    ),
 
                   )
                 ],
               ),
             ),
           )
-
-
-
         ],
       )
     );
