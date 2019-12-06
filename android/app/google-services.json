@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "450814159984",
+    "firebase_url": "https://flutter-save-her.firebaseio.com",
+    "project_id": "flutter-save-her",
+    "storage_bucket": "flutter-save-her.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450814159984:android:5ef07251325f705a0f18b5",
+        "android_client_info": {
+          "package_name": "com.example.save_her_for_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450814159984-0mv8fqakn15ogbgjlekleqprf3nvld8r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.save_her_for_flutter",
+            "certificate_hash": "c97b31b174a20a7809b4eed1b56fc1cb147b0682"
+          }
+        },
+        {
+          "client_id": "450814159984-46g2lshtmhef065eo937jqqk3hjv2qo7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMeZE4U4zuk-HpcsekV_gD3VfZymcjJcU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450814159984-46g2lshtmhef065eo937jqqk3hjv2qo7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

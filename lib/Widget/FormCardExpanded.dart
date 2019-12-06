@@ -8,41 +8,17 @@ class FormCardExpanded extends StatefulWidget {
 
 class _FormCardExpandedState extends State<FormCardExpanded> {
 
-  final email=TextFormField(
-    obscureText: false,
-    decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(20),
-        labelText: "Email",
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(32.0)
-        )
-    ),
-  );
-
-  final password=TextFormField(
-    obscureText: false,
-    decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(20),
-        labelText: "Password",
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(32.0)
-        )
-    ),
-  );
-
-  final cpassword=TextFormField(
-    obscureText: false,
-    decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(20),
-        labelText: "Confirm password",
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(32.0)
-        )
-    ),
-  );
+  static bool passwordvisible;
+  static bool cpasswordvisible;
 
   double _height=600;
 
+
+  @override
+  void initState() {
+    passwordvisible=false;
+    cpasswordvisible=false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,15 +51,65 @@ class _FormCardExpandedState extends State<FormCardExpanded> {
               height: ScreenUtil.getInstance().setHeight(30),
             ),
 
-            email,
+            TextFormField(
+              obscureText: false,
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(20),
+                  labelText: "Email",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32.0)
+                  )
+              ),
+            ),
             SizedBox(
               height: ScreenUtil.getInstance().setHeight(30),
             ),
-            password,
+            TextFormField(
+              obscureText: passwordvisible,
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(20),
+                  labelText: "Password",
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      passwordvisible
+                      ? Icons.visibility : Icons.visibility_off,
+                    ),
+                    onPressed: (){
+                      setState(() {
+                        passwordvisible=!passwordvisible;
+                      });
+                    },
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32.0)
+                  )
+              ),
+            ),
             SizedBox(
               height: ScreenUtil.getInstance().setHeight(30),
             ),
-            cpassword,
+
+            TextFormField(
+              obscureText: cpasswordvisible,
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(20),
+                  labelText: "Confirm password",
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      cpasswordvisible
+                      ? Icons.visibility : Icons.visibility_off,
+                    ),
+                    onPressed: (){
+                      setState(() {
+                        cpasswordvisible=!cpasswordvisible;
+                      });
+                    },
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32.0)
+                  )
+              ),
+            ),
           ],
         ),
       ),
