@@ -6,6 +6,8 @@ import 'package:save_her/Widget/FormCard.dart';
 import 'package:flutter/animation.dart';
 import 'package:save_her/Widget/ShowUp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:save_her/homepage.dart';
+import 'Widget/StackFlare.dart';
 
 
 class Login extends StatefulWidget {
@@ -24,9 +26,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   final _cpasswordcapture= TextEditingController();
 
   bool _isvisible=false;
-  Widget _widget= new FormCard();
   final FlareControls controls = FlareControls();
-  var _signin = 'Sign In';
+
+  static var _signin = 'Sign In';
   var _signup = 'Sign Up';
   static bool passwordvisible=true;
   static bool cpasswordvisible=true;
@@ -41,7 +43,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   );
 
   double _height=500;
-  double _hofcontain=350;
+  double _hofcontain=275;
   int count=1;
 
 
@@ -70,13 +72,14 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       animation: animationController,
       builder: (BuildContext context, Widget child){
         return new Scaffold(
-            backgroundColor: Color(0xff99EAE1),
+            backgroundColor: Color(0xff0d2d41),
             resizeToAvoidBottomPadding: true,
             body:Transform(
               transform: Matrix4.translationValues(animation.value *width, 0.0, 0.0),
               child: Stack(
                 fit: StackFit.expand,
                 children: <Widget>[
+
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -85,10 +88,11 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         child: Container(
                             height: ScreenUtil.getInstance().setHeight(600),
                             width: ScreenUtil.getInstance().setWidth(800),
-                            child: new FlareActor("assets/aaa.flr",alignment: Alignment.center,animation:"spin",controller: controls,fit: BoxFit.contain,)
-
+                            child: new FlareActor("assets/aaa.flr",alignment: Alignment.center,animation:"evening",controller: controls,fit: BoxFit.contain,)
                         ),
                       ),
+
+                     StackFlare(controls: controls,)
                     ],
                   ),
                   SingleChildScrollView(
@@ -107,6 +111,18 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(25.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  offset: Offset(0.0,15.0),
+                                  blurRadius: 15.0
+                                ),
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  offset: Offset(0.0,-10.0),
+                                  blurRadius: 10.0
+                                )
+                              ]
                             ),
                             child: Padding(
                               padding: EdgeInsets.only(left: 16.0, right: 16.0,top: 16.0),
@@ -225,14 +241,14 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                         setState(() {
                                           count+=1;
                                           if (count % 2 ==0){
-                                            _hofcontain=300;
+                                            _hofcontain=225;
                                             _height=600;
                                             _signup="Sign In";
                                             _signin="Sign Up";
                                             _isvisible=!_isvisible;
                                           }
                                           else if (count %2 !=0){
-                                            _hofcontain=350;
+                                            _hofcontain=275;
                                             _height=500;
                                             _signup="Sign Up";
                                             _signin="Sign In";
@@ -286,6 +302,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                           password=_passwordcapture.text;
                                           FirebaseAuth.instance.signInWithEmailAndPassword(email: email,
                                               password: password);
+                                          Navigator.push(context,
+                                          MaterialPageRoute(builder: (context)=> HomePage(controls: controls,)));
                                         }
                                         else if (_isvisible==true){
                                           email=_emailcapture.text;
@@ -319,7 +337,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           SizedBox(
                             height: ScreenUtil.getInstance().setHeight(40),
                           ),
-                          Row(
+                          /*Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               horizontalLine(),
@@ -333,9 +351,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               ),
                               horizontalLine()
                             ],
-                          )
-
-
+                          )*/
                         ],
                       ),
                     ),
@@ -343,7 +359,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                 ],
               ),
             )
-
         );
       },
     );
