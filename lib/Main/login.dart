@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:save_her/Widget/FormCard.dart';
 import 'package:flutter/animation.dart';
 import 'package:save_her/Widget/ShowUp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:save_her/homepage.dart';
-import 'Widget/StackFlare.dart';
+import 'package:save_her/Main/homepage.dart';
+import '../Widget/StackFlare.dart';
+import '../Tools/HexColor.dart';
 
 
 class Login extends StatefulWidget {
@@ -19,6 +19,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   Animation<double> animation;
   AnimationController animationController;
+
+  DateTime now;
+  String _flare_animation;
 
 
   final _emailcapture= TextEditingController();
@@ -46,6 +49,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   double _hofcontain=275;
   int count=1;
 
+  Color _color;
+  Color _button_color;
+
 
   @override
   void initState() {
@@ -58,6 +64,20 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     animationController.forward();
     passwordvisible=true;
     cpasswordvisible=true;
+    now= DateTime.now();
+    if ( 0 < now.hour && now.hour<18){
+      _flare_animation="morning";
+      _color = HexColor("#dff8f8");
+
+
+    }
+    else{
+      _flare_animation="evening";
+      _color= HexColor("#0d2d41");
+      _button_color= HexColor("#407BA3");
+    }
+
+
   }
 
   @override
@@ -72,7 +92,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       animation: animationController,
       builder: (BuildContext context, Widget child){
         return new Scaffold(
-            backgroundColor: Color(0xff0d2d41),
+            backgroundColor: _color,
             resizeToAvoidBottomPadding: true,
             body:Transform(
               transform: Matrix4.translationValues(animation.value *width, 0.0, 0.0),
@@ -88,11 +108,12 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         child: Container(
                             height: ScreenUtil.getInstance().setHeight(600),
                             width: ScreenUtil.getInstance().setWidth(800),
-                            child: new FlareActor("assets/aaa.flr",alignment: Alignment.center,animation:"evening",controller: controls,fit: BoxFit.contain,)
+                            child: new FlareActor("assets/aaa.flr",alignment: Alignment.center,animation:_flare_animation,controller: controls,fit: BoxFit.contain,)
                         ),
                       ),
 
-                     StackFlare(controls: controls,)
+                     StackFlare(controls: controls,
+                     flare_animation: _flare_animation,)
                     ],
                   ),
                   SingleChildScrollView(
@@ -135,7 +156,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                       style: TextStyle(
                                         fontSize: ScreenUtil.getInstance().setSp(55),
                                         fontFamily: "Avo",
-                                        color: Colors.teal,
+                                        color: _button_color,
                                         letterSpacing: .6,
                                       ),
                                     ),
@@ -261,12 +282,12 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                         delay: 500,
                                         child: Text(_signup,
                                           style: TextStyle(
+                                              color: Colors.white,
                                               fontSize: ScreenUtil.getInstance().setSp(35),
                                               fontFamily: "Avo"
                                           ),
                                         ),
                                       )
-
                                   )
                                 ],
                               ),
@@ -282,7 +303,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                   width: ScreenUtil.getInstance().setWidth(330),
                                   height: ScreenUtil.getInstance().setHeight(100),
                                   decoration: BoxDecoration(
-                                      color: Color(0xff00796C),
+                                      color: _button_color,
                                       borderRadius: BorderRadius.circular(15.0),
                                       boxShadow: [
                                         BoxShadow(
@@ -303,7 +324,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                           FirebaseAuth.instance.signInWithEmailAndPassword(email: email,
                                               password: password);
                                           Navigator.push(context,
-                                          MaterialPageRoute(builder: (context)=> HomePage(controls: controls,)));
+                                          MaterialPageRoute(builder: (context)=> HomePage(controls: controls,flare_animation: _flare_animation,)));
                                         }
                                         else if (_isvisible==true){
                                           email=_emailcapture.text;
@@ -337,21 +358,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           SizedBox(
                             height: ScreenUtil.getInstance().setHeight(40),
                           ),
-                          /*Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              horizontalLine(),
-                              Text("Social Login",
-                                style: TextStyle(
-                                    fontSize: ScreenUtil.getInstance().setSp(20),
-                                    fontFamily: "Avo",
-                                    color: Colors.black
-                                ),
-
-                              ),
-                              horizontalLine()
-                            ],
-                          )*/
                         ],
                       ),
                     ),
