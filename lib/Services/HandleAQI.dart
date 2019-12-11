@@ -29,6 +29,7 @@ class _HandleAQIState extends State<HandleAQI> {
   }
 
   Future<AQI> aqi;
+  String _path;
 
   @override
   void initState() {
@@ -39,34 +40,113 @@ class _HandleAQIState extends State<HandleAQI> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ScreenUtil.getInstance().setHeight(200),
-      padding: EdgeInsets.all(30),
-      decoration: BoxDecoration(
-          color: Colors.yellow,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black12,
-                offset: Offset(0.0,15.0),
-                blurRadius: 15.0
-            ),]
+        alignment: Alignment.bottomRight,
+        height: ScreenUtil.getInstance().setHeight(200),
+        width: ScreenUtil.getInstance().setWidth(370),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(20.0))
       ),
-      child: FutureBuilder<AQI>(
-        future: aqi,
-        builder: (context,snapshot){
-          if (snapshot.hasData){
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                
-              ],
+        child: FutureBuilder<AQI>(
+          future: aqi,
+          builder: (context,snapshot){
+            if (snapshot.hasData){
+              if(snapshot.data.data.current.pollution.aqius >=0 && snapshot.data.data.current.pollution.aqius<=50)
+                _path="assets/icons/good.png";
+              else if (snapshot.data.data.current.pollution.aqius >=51 && snapshot.data.data.current.pollution.aqius<=100)
+                _path="assets/icons/moderate.png";
+              else if (snapshot.data.data.current.pollution.aqius >=101 && snapshot.data.data.current.pollution.aqius<=150)
+                _path="assets/icons/unhealthy for so.png";
+              else if (snapshot.data.data.current.pollution.aqius >=151 && snapshot.data.data.current.pollution.aqius<=200)
+                _path="assets/icons/unhealthy.png";
+              else if (snapshot.data.data.current.pollution.aqius >=201 && snapshot.data.data.current.pollution.aqius<=300)
+                _path="assets/icons/very unhealthy.png";
+              else if (snapshot.data.data.current.pollution.aqius > 300)
+                _path="assets/icons/hazard.png";
+              return Padding(
+                padding: EdgeInsets.only(left: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Stack(
+                      fit: StackFit.loose,
+                      children: <Widget>[
+                        Image.asset(_path,
+                          width: 60,
+                          height: 100,
+                        ),
 
-            );
+                        Positioned(
+                          top: 45,
+                          left: 10,
+                          child: Text("${snapshot.data.data.current.pollution.aqius}",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "Avo",
+                              fontSize: ScreenUtil.getInstance().setSp(40)
+                            ),
+                          ),
+                        ),
+                        
+                        Positioned(
+                          top: 70,
+                          left: 18,
+                          child: Text("AQI",
+                          style: TextStyle(
+                            letterSpacing: 1,
+                            fontFamily: "Avo",
+                            color: Colors.black,
+                            fontSize: ScreenUtil.getInstance().setSp(20)
+                          ),),
+                        )
+
+
+                      ],
+                    ),
+
+                    SizedBox(
+                      width: 10,
+                    ),
+
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+
+                        SizedBox(
+                          height: ScreenUtil.getInstance().setHeight(20.0),
+                        ),
+                          
+                          Text("${snapshot.data.data.city}",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: "Avo"
+                            ),
+                          ),
+                        
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text("${snapshot.data.data.country}",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "Avo",
+                              fontSize: ScreenUtil.getInstance().setSp(22.0),
+                            ),
+                          ),
+                        )
+
+
+                      ],
+                    )
+                  ],
+                ),
+              );
           }
-          else if (snapshot.hasError)
-            return Text("${snapshot.error}");
+            else if (snapshot.hasError)
+              return Text("${snapshot.error}");
 
-          return CircularProgressIndicator();
+
+            return CircularProgressIndicator();
         },
       )
     );

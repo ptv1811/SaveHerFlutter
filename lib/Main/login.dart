@@ -49,8 +49,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   double _hofcontain=275;
   int count=1;
 
-  Color _color;
-  Color _button_color;
+  Color _background_color, _button_color, _string_color;
+  Color _lower_color;
 
 
   @override
@@ -67,14 +67,17 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     now= DateTime.now();
     if ( 0 < now.hour && now.hour<18){
       _flare_animation="morning";
-      _color = HexColor("#dff8f8");
-
-
+      _background_color = HexColor("#dff8f8");
+      _button_color=HexColor("#0c716e");
+      _string_color=HexColor("#000000");
+      _lower_color= HexColor("#52877D");
     }
     else{
       _flare_animation="evening";
-      _color= HexColor("#0d2d41");
+      _background_color= HexColor("#0d2d41");
       _button_color= HexColor("#407BA3");
+      _string_color=HexColor("#ffffff");
+      _lower_color=HexColor("#264E68");
     }
 
 
@@ -92,7 +95,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       animation: animationController,
       builder: (BuildContext context, Widget child){
         return new Scaffold(
-            backgroundColor: _color,
+            backgroundColor: _background_color,
             resizeToAvoidBottomPadding: true,
             body:Transform(
               transform: Matrix4.translationValues(animation.value *width, 0.0, 0.0),
@@ -282,7 +285,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                         delay: 500,
                                         child: Text(_signup,
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: _string_color,
                                               fontSize: ScreenUtil.getInstance().setSp(35),
                                               fontFamily: "Avo"
                                           ),
@@ -324,7 +327,13 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                           FirebaseAuth.instance.signInWithEmailAndPassword(email: email,
                                               password: password);
                                           Navigator.push(context,
-                                          MaterialPageRoute(builder: (context)=> HomePage(controls: controls,flare_animation: _flare_animation,)));
+                                          MaterialPageRoute(builder: (context)=> HomePage(
+                                            controls: controls,
+                                            flare_animation: _flare_animation,
+                                            background_color: _background_color,
+                                            low_color: _lower_color,)
+                                          )
+                                          );
                                         }
                                         else if (_isvisible==true){
                                           email=_emailcapture.text;

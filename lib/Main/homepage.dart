@@ -3,15 +3,19 @@ import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:save_her/Services/HandleAQI.dart';
+import 'package:save_her/Tools/HexColor.dart';
 
 class HomePage extends StatefulWidget {
 
   final FlareControls controls;
   final String flare_animation;
+  final Color background_color;
+  final Color low_color;
 
   const HomePage(
       {Key key,
-        @required this.controls,@required this.flare_animation
+        @required this.controls,@required this.flare_animation, @required this.background_color,
+        @required this.low_color
       }):super(key: key);
 
   @override
@@ -23,9 +27,15 @@ class _HomePageState extends State<HomePage> {
 
 
   @override
+  void initState() {
+    super.initState();
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff0d2d41),
+      backgroundColor: widget.low_color,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -34,7 +44,8 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               Center(
                 child: Container(
-                  height: ScreenUtil.getInstance().setHeight(400),
+                  color: widget.background_color,
+                  height: ScreenUtil.getInstance().setHeight(370),
                   width: ScreenUtil.getInstance().setWidth(800),
                   child:Hero(
                     tag: 'fly',
@@ -42,14 +53,20 @@ class _HomePageState extends State<HomePage> {
                       ,alignment: Alignment.bottomCenter,animation: widget.flare_animation,controller: widget.controls,),
                   )
                 ),
-              )
+              ),
             ],
           ),
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
+
+                Padding(
+                  padding: EdgeInsets.only(left: 170,top:55),
+                  child: HandleAQI()
+                ),
+
                 SizedBox(
-                  height: ScreenUtil.getInstance().setHeight(370),
+                  height: ScreenUtil.getInstance().setHeight(49),
                 ),
 
                 Container(
@@ -57,13 +74,12 @@ class _HomePageState extends State<HomePage> {
                   height: ScreenUtil.getInstance().setHeight(2000),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(/*topRight: Radius.circular(60.0),*/ topLeft: Radius.circular(70.0)),
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(45.0), topLeft: Radius.circular(45.0)),
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(20),
                     child: Column(
                       children: <Widget>[
-                        HandleAQI()
                       ],
                     ),
                   ),
@@ -75,6 +91,8 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+
 
 
 }
