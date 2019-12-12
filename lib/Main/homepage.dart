@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:save_her/Services/HandleAQI.dart';
 import 'package:save_her/Tools/HexColor.dart';
+import 'package:save_her/Widget/SlideCart.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.only(topRight: Radius.circular(45.0), topLeft: Radius.circular(45.0)),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.only(left: 0,top: 20,bottom: 20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -87,6 +88,39 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           height: ScreenUtil.getInstance().setHeight(0.0),
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(left: 20.0),
+                              child: Container(
+                                width: ScreenUtil.getInstance().setWidth(200.0),
+                                height: ScreenUtil.getInstance().setHeight(200.0),
+                                child: new FlareActor("assets/tree.flr",
+                                  alignment: Alignment.center,animation: "animation",controller: widget.controls,),
+                              ),
+                            ),
+
+                            Padding(
+                              padding: EdgeInsets.only(right: 20.0),
+                              child: Text(
+                                "Welcome to Save Her",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "Avo",
+                                    fontSize: ScreenUtil.getInstance().setSp(40.0)
+                                ),
+                              ),
+                            )
+
+
+                          ],
+                        ),
+                        SizedBox(
+                          height: ScreenUtil.getInstance().setHeight(50.0),
+                        ),
+                        SlidingCardViews()
                       ],
                     ),
                   ),
@@ -102,8 +136,8 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         color: widget.bottom_navigation,
         items: <Widget>[
-          Icon(Icons.account_circle,size: 38,color: Colors.black,),
-          Icon(Icons.add_a_photo,size: 38,color: Colors.black,)
+          Icon(Icons.list,size: 38,color: Colors.black,),
+          Icon(Icons.account_circle,size: 38,color: Colors.black,)
         ],
       ),
     );

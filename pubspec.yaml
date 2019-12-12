@@ -60,6 +60,7 @@ flutter:
   assets:
     - assets/aaa.flr
     - assets/life.flr
+    - assets/tree.flr
     - assets/icons/
     - assets/weather/
     - assets/image/

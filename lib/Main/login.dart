@@ -326,17 +326,20 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                         if (_isvisible==false){
                                           email=_emailcapture.text;
                                           password=_passwordcapture.text;
-                                          FirebaseAuth.instance.signInWithEmailAndPassword(email: email,
-                                              password: password);
-                                          Navigator.push(context,
-                                          MaterialPageRoute(builder: (context)=> HomePage(
-                                            controls: controls,
-                                            flare_animation: _flare_animation,
-                                            background_color: _background_color,
-                                            low_color: _lower_color,
-                                            bottom_navigation: _bottom_navigation_color,)
-                                          )
-                                          );
+
+                                          if (email.isNotEmpty && password.isNotEmpty){
+                                            FirebaseAuth.instance.signInWithEmailAndPassword(email: email,
+                                                password: password);
+                                            Navigator.push(context,
+                                                MaterialPageRoute(builder: (context)=> HomePage(
+                                                  controls: controls,
+                                                  flare_animation: _flare_animation,
+                                                  background_color: _background_color,
+                                                  low_color: _lower_color,
+                                                  bottom_navigation: _bottom_navigation_color,)
+                                                )
+                                            );
+                                          }
                                         }
                                         else if (_isvisible==true){
                                           email=_emailcapture.text;
