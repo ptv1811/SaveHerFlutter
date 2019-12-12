@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +12,12 @@ class HomePage extends StatefulWidget {
   final String flare_animation;
   final Color background_color;
   final Color low_color;
+  final Color bottom_navigation;
 
   const HomePage(
       {Key key,
         @required this.controls,@required this.flare_animation, @required this.background_color,
-        @required this.low_color
+        @required this.low_color,@required this.bottom_navigation
       }):super(key: key);
 
   @override
@@ -79,7 +81,12 @@ class _HomePageState extends State<HomePage> {
                   child: Padding(
                     padding: EdgeInsets.all(20),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
+                        SizedBox(
+                          height: ScreenUtil.getInstance().setHeight(0.0),
+                        ),
                       ],
                     ),
                   ),
@@ -87,6 +94,16 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           )
+        ],
+      ),
+
+      bottomNavigationBar: CurvedNavigationBar(
+        height: 50,
+        backgroundColor: Colors.white,
+        color: widget.bottom_navigation,
+        items: <Widget>[
+          Icon(Icons.account_circle,size: 38,color: Colors.black,),
+          Icon(Icons.add_a_photo,size: 38,color: Colors.black,)
         ],
       ),
     );

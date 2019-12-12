@@ -4,6 +4,7 @@ import 'package:save_her/Main/air_aqi.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 
 class HandleAQI extends StatefulWidget {
@@ -12,8 +13,9 @@ class HandleAQI extends StatefulWidget {
 }
 
 class _HandleAQIState extends State<HandleAQI> {
-
   Future<AQI> fetchAQI() async{
+
+
     final response=
     await http.get('http://api.airvisual.com/v2/city?city=Ho Chi Minh City&state=Ho Chi Minh City&country=Vietnam&key=ae114a29-b270-4823-8ddc-eb83fb0833d9');
 
@@ -28,14 +30,18 @@ class _HandleAQIState extends State<HandleAQI> {
     }
   }
 
+
+
   Future<AQI> aqi;
-  String _path;
+  String _path, _weather;
 
   @override
   void initState() {
     super.initState();
     aqi=fetchAQI();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +56,7 @@ class _HandleAQIState extends State<HandleAQI> {
         child: FutureBuilder<AQI>(
           future: aqi,
           builder: (context,snapshot){
+
             if (snapshot.hasData){
               if(snapshot.data.data.current.pollution.aqius >=0 && snapshot.data.data.current.pollution.aqius<=50)
                 _path="assets/icons/good.png";
@@ -63,6 +70,10 @@ class _HandleAQIState extends State<HandleAQI> {
                 _path="assets/icons/very unhealthy.png";
               else if (snapshot.data.data.current.pollution.aqius > 300)
                 _path="assets/icons/hazard.png";
+
+              _weather= "assets/weather/${snapshot.data.data.current.weather.ic}.png";
+
+
               return Padding(
                 padding: EdgeInsets.only(left: 10.0),
                 child: Row(
@@ -123,19 +134,35 @@ class _HandleAQIState extends State<HandleAQI> {
                                 fontFamily: "Avo"
                             ),
                           ),
-                        
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Text("${snapshot.data.data.country}",
+
+                          Text("${snapshot.data.data.country}",
                             style: TextStyle(
                               color: Colors.black,
                               fontFamily: "Avo",
                               fontSize: ScreenUtil.getInstance().setSp(22.0),
                             ),
                           ),
+                        SizedBox(
+                          height: ScreenUtil.getInstance().setHeight(15.0) ,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Image.asset(_weather,
+                            width: ScreenUtil.getInstance().setWidth(80.0),
+                            height: ScreenUtil.getInstance().setHeight(70.0),
+                            ),
+                            SizedBox(
+                              width: ScreenUtil.getInstance().setWidth(20.0),
+                            ),
+                            Text("${snapshot.data.data.current.weather.tp}°C",
+                            style: TextStyle(
+                              fontSize: ScreenUtil.getInstance().setSp(35.0),
+                              fontFamily: "Avo",
+                              color: Colors.black,
+                            ),)
+                          ],
                         )
-
-
                       ],
                     )
                   ],
@@ -146,7 +173,10 @@ class _HandleAQIState extends State<HandleAQI> {
               return Text("${snapshot.error}");
 
 
-            return CircularProgressIndicator();
+            return Center(
+              child: SpinKitCubeGrid(color: Colors.blue,),
+            );
+
         },
       )
     );

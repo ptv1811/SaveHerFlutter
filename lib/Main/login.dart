@@ -50,7 +50,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   int count=1;
 
   Color _background_color, _button_color, _string_color;
-  Color _lower_color;
+  Color _lower_color, _bottom_navigation_color;
 
 
   @override
@@ -71,6 +71,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       _button_color=HexColor("#0c716e");
       _string_color=HexColor("#000000");
       _lower_color= HexColor("#52877D");
+      _bottom_navigation_color=HexColor("#b2e0e0");
     }
     else{
       _flare_animation="evening";
@@ -78,6 +79,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       _button_color= HexColor("#407BA3");
       _string_color=HexColor("#ffffff");
       _lower_color=HexColor("#264E68");
+      _bottom_navigation_color=HexColor("#98bcd3");
     }
 
 
@@ -331,7 +333,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                             controls: controls,
                                             flare_animation: _flare_animation,
                                             background_color: _background_color,
-                                            low_color: _lower_color,)
+                                            low_color: _lower_color,
+                                            bottom_navigation: _bottom_navigation_color,)
                                           )
                                           );
                                         }
