@@ -20,15 +20,15 @@ Right now, Save Her serves users with 2 features which is:
 
 -   **From 6AM to 6PM:**
 
-    ![A picture containing text Description automatically generated](media/da9f70a353b16f6592b9480c76dd647f.png)
+    ![](images/Screenshot_1576349774.png)
 
-    ![A screenshot of a cell phone Description automatically generated](media/562c429c8b118d90bb4b21d5e543905b.png)
+    ![](images/Screenshot_1576349787.png)
 
-    ![A screenshot of a cell phone Description automatically generated](media/c38d3d41467e8755d5fceca04d4fc427.png)
+    ![](images/Screenshot_1576349791.png)
 
 -   **From 6PM to 6AM:**
 
-    ![](media/d862c556f79784eb02bfabae66c4c587.png)
+    ![](images/Screenshot_1576349394.png)
 
     ![A screenshot of a computer Description automatically generated](media/ea2ebe838c7b1ec0c520331237e0ab17.png)
 
