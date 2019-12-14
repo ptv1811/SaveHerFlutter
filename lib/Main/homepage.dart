@@ -7,6 +7,7 @@ import 'package:save_her/Services/HandleAQI.dart';
 import 'package:save_her/Tools/HexColor.dart';
 import 'package:save_her/Services/FeaturesPage.dart';
 import 'package:save_her/Widget/SlideCart.dart';
+import 'package:save_her/Services/Edit.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   int pageIndex=0;
 
   final FeaturesPage _featuresPage= new FeaturesPage();
-  final Text _text= new Text("hi", style: TextStyle(color: Colors.black),);
+  final EditAccount _editAccount= new EditAccount();
 
   Widget _showpage= FeaturesPage();
 
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         return _featuresPage;
         break;
       case 1:
-        return _text;
+        return _editAccount;
         break;
     }
   }

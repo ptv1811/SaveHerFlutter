@@ -95,7 +95,7 @@ class _ClassificationState extends State<Classification> {
     return Scaffold(
       body: LiquidSwipe(
         pages: pages,
-        fullTransitionValue: 300,
+        fullTransitionValue: 200,
         enableLoop: false,
         enableSlideIcon: true,
         positionSlideIcon: 0.8,

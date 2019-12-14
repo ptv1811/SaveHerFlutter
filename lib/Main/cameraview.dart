@@ -22,6 +22,7 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
   int a=0;
   double height=150;
   double width=500;
+  Color _color=Colors.red;
 
   List<String> Recyclable= ["Jewellery","Tableware","Porcelain","Paper"];
   List<String> Organic=["Vegetable","Bird","Fish","Fruit"];
@@ -29,8 +30,10 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
   static String text;
   static String entityId;
   static String confidence;
+  String assets;
 
   Widget _result;
+  String type;
 
   Widget _widget= Container(
     key: ValueKey(1),
@@ -87,7 +90,7 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
     });
 
 
-    //Navigator.pop(context);
+   // Navigator.pop(context);
 
   }
 
@@ -225,10 +228,21 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
             onTap: (){
               setState(() {
 
+                for (int i=0; i< Recyclable.length;i++){
+                  if (text==Recyclable[i]){
+                    type="Recyclable";
+                    assets="assets/image/recyclable.png";
+                    _color=Colors.blue;
+                  }
+                }
 
-
-
-
+                for (int i=0; i< Organic.length;i++){
+                  if (text==Organic[i]){
+                    type="Organic";
+                    assets="assets/image/organic.png";
+                    _color=Colors.green;
+                  }
+                }
                 _widget= Container(
                   key: ValueKey(2),
                   width: ScreenUtil.getInstance().setWidth(700),
@@ -267,8 +281,8 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
                       ),
                       Text("$text",
                       style: TextStyle(
-                        color: Colors.red,
-                        fontSize: ScreenUtil.getInstance().setSp(60),
+                        color: _color,
+                        fontSize: ScreenUtil.getInstance().setSp(40),
                         fontFamily: "Avo"
                       ),),
                       SizedBox(
@@ -286,10 +300,26 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
                       ),
                       Text("$confidence %",
                         style: TextStyle(
-                            color: Colors.red,
-                            fontSize: ScreenUtil.getInstance().setSp(50),
+                            color: _color,
+                            fontSize: ScreenUtil.getInstance().setSp(40),
                             fontFamily: "Avo"
                         ),),
+                      Text("$type",
+                        style: TextStyle(
+                            color: _color,
+                            fontFamily: "Avo",
+                            fontSize: ScreenUtil.getInstance().setSp(50)
+                        ),),
+
+                      Text("You should throw it to the green trash bin",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Avo",
+                            fontSize: ScreenUtil.getInstance().setSp(20)
+                        ),),
+
+                      Image.asset(assets,width: ScreenUtil.getInstance().setWidth(150),
+                      height: ScreenUtil.getInstance().setHeight(150),)
                     ],
                   )
                 );
@@ -317,11 +347,13 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(seconds: 1),
+      curve: Curves.easeOut,
       height: double.infinity,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.red
+        color: _color
       ),
       child: _decideView()
     );
