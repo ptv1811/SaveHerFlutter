@@ -65,7 +65,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     passwordvisible=true;
     cpasswordvisible=true;
     now= DateTime.now();
-    if ( 0 < now.hour && now.hour<18){
+    if ( 6 < now.hour && now.hour<18){
       _flare_animation="morning";
       _background_color = HexColor("#dff8f8");
       _button_color=HexColor("#0c716e");
@@ -111,8 +111,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
                       Center(
                         child: Container(
-                            height: ScreenUtil.getInstance().setHeight(600),
-                            width: ScreenUtil.getInstance().setWidth(800),
+                            height: MediaQuery.of(context).size.height *0.45,
+                            width: MediaQuery.of(context).size.width,
                             child: new FlareActor("assets/aaa.flr",alignment: Alignment.center,animation:_flare_animation,controller: controls,fit: BoxFit.contain,)
                         ),
                       ),
@@ -133,6 +133,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           AnimatedContainer(
                             duration: Duration(milliseconds: 300),
                             width: double.infinity,
+                            curve: Curves.easeInCirc,
                             height: ScreenUtil.getInstance().setHeight(_height),
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -168,7 +169,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                   ),
 
                                   SizedBox(
-                                    height: ScreenUtil.getInstance().setHeight(30),
+                                    height: ScreenUtil.getInstance().setHeight(40),
                                   ),
 
                                   TextFormField(

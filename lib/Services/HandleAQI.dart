@@ -63,11 +63,11 @@ class _HandleAQIState extends State<HandleAQI> {
               else if (snapshot.data.data.current.pollution.aqius >=51 && snapshot.data.data.current.pollution.aqius<=100)
                 _path="assets/icons/moderate.png";
               else if (snapshot.data.data.current.pollution.aqius >=101 && snapshot.data.data.current.pollution.aqius<=150)
-                _path="assets/icons/unhealthy for so.png";
+                _path="assets/icons/unhealthy_for_so.png";
               else if (snapshot.data.data.current.pollution.aqius >=151 && snapshot.data.data.current.pollution.aqius<=200)
                 _path="assets/icons/unhealthy.png";
               else if (snapshot.data.data.current.pollution.aqius >=201 && snapshot.data.data.current.pollution.aqius<=300)
-                _path="assets/icons/very unhealthy.png";
+                _path="assets/icons/very_unhealthy.png";
               else if (snapshot.data.data.current.pollution.aqius > 300)
                 _path="assets/icons/hazard.png";
 
@@ -89,7 +89,7 @@ class _HandleAQIState extends State<HandleAQI> {
 
                         Positioned(
                           top: 45,
-                          left: 10,
+                          left: 13,
                           child: Text("${snapshot.data.data.current.pollution.aqius}",
                             style: TextStyle(
                               color: Colors.black,

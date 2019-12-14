@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
+import 'package:page_transition/page_transition.dart';
+import 'package:save_her/Main/sort_waste.dart';
 
 class SlidingCardViews extends StatefulWidget {
   @override
@@ -39,12 +41,20 @@ class _SlidingCardViewsState extends State<SlidingCardViews> {
       child: PageView(
         controller: _pageController,
         children: <Widget>[
-          SlidingCard(
-            name: "Waste Classifcation",
-            description: "Help you sort type of waste.",
-            asset: "assets/image/waste.jpg",
-            offset: pageOffset,
-          ),
+
+          GestureDetector(
+            child: SlidingCard(
+              name: "Waste Classifcation",
+              description: "Help you sort type of waste.",
+              asset: "assets/image/waste.jpg",
+              offset: pageOffset,
+            ),
+            onTap: (){
+              Navigator.push(context, PageTransition(type: PageTransitionType.downToUp,child: Classification()));
+
+            },
+          )
+          ,
           SlidingCard(
             name: "Nearest Trash Bin",
             description: "Coming soon",

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:save_her/Services/HandleAQI.dart';
 import 'package:save_her/Tools/HexColor.dart';
+import 'package:save_her/Services/FeaturesPage.dart';
 import 'package:save_her/Widget/SlideCart.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,7 +27,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int pageIndex=0;
 
+  final FeaturesPage _featuresPage= new FeaturesPage();
+  final Text _text= new Text("hi", style: TextStyle(color: Colors.black),);
+
+  Widget _showpage= FeaturesPage();
+
+  Widget _pageChooser(int page){
+    switch(page){
+      case 0:
+        return _featuresPage;
+        break;
+      case 1:
+        return _text;
+        break;
+    }
+  }
 
 
   @override
@@ -79,51 +96,8 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.only(topRight: Radius.circular(45.0), topLeft: Radius.circular(45.0)),
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 0,top: 20,bottom: 20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        SizedBox(
-                          height: ScreenUtil.getInstance().setHeight(0.0),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(left: 20.0),
-                              child: Container(
-                                width: ScreenUtil.getInstance().setWidth(200.0),
-                                height: ScreenUtil.getInstance().setHeight(200.0),
-                                child: new FlareActor("assets/tree.flr",
-                                  alignment: Alignment.center,animation: "animation",controller: widget.controls,),
-                              ),
-                            ),
 
-                            Padding(
-                              padding: EdgeInsets.only(right: 20.0),
-                              child: Text(
-                                "Welcome to Save Her",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: "Avo",
-                                    fontSize: ScreenUtil.getInstance().setSp(40.0)
-                                ),
-                              ),
-                            )
-
-
-                          ],
-                        ),
-                        SizedBox(
-                          height: ScreenUtil.getInstance().setHeight(50.0),
-                        ),
-                        SlidingCardViews()
-                      ],
-                    ),
-                  ),
+                  child: _showpage,
                 )
               ],
             ),
@@ -134,11 +108,19 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: CurvedNavigationBar(
         height: 50,
         backgroundColor: Colors.white,
+        index: pageIndex,
+        animationCurve: Curves.easeInOut,
         color: widget.bottom_navigation,
         items: <Widget>[
-          Icon(Icons.list,size: 38,color: Colors.black,),
+          Icon(Icons.list,size: 38,color: Colors.black),
           Icon(Icons.account_circle,size: 38,color: Colors.black,)
         ],
+        onTap: (int tapindex){
+          setState(() {
+
+            _showpage=_pageChooser(tapindex);
+          });
+        },
       ),
     );
   }
