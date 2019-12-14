@@ -1,16 +1,13 @@
 # Save Her 
 
-A new Flutter application.
+Earth is dying everyday due to climate change, air pollution, global warming, etc. She really needs your help. Every small actions count as a hand to rescue Earth. So what can we do? Save Her is the answer. Save Her is the environment-friendly platform which gives users the ability to accomplish small but great meaningful actions which could possibly save the Earth. So how Save Her does that? Let's find out!
 
-## Getting Started
+## So-far Features
 
-This project is a starting point for a Flutter application.
+Right now Save Her serves users with 2 features which is:
+1. Information about Air Pollution.
+2. Waste classifcation in order to help the waste disposal process to become easier.
 
-A few resources to get you started if this is your first Flutter project:
+## Some footage of the UI
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### From 6AM to 6PM, UI is in light mode
