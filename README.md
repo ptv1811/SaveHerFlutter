@@ -20,26 +20,26 @@ Right now, Save Her serves users with 2 features which is:
 
 -   **From 6AM to 6PM:**
 
-    ![](images/Screenshot_1576349774.png)
+    <img src="images/Screenshot_1576349774.png" width="400">
 
-    ![](images/Screenshot_1576349787.png)
+    <img src="images/Screenshot_1576349787.png" width="400">
 
-    ![](images/Screenshot_1576349791.png)
+    <img src="images/Screenshot_1576349791.png" width="400">
 
 -   **From 6PM to 6AM:**
 
     ![](images/Screenshot_1576349394.png)
 
-    ![A screenshot of a computer Description automatically generated](media/ea2ebe838c7b1ec0c520331237e0ab17.png)
+    ![](images/Screenshot_1576349414.png)
 
-    ![A screenshot of a cell phone Description automatically generated](media/8d68857d6947d89f733de61df42e287e.png)
+    ![](images/Screenshot_1576349467.png)
 
 -   **Air Pollution information and weather forecast:**
 
     User can now be aware of the pollution in their cities in order to prepare
     the best care for the health.
 
-    ![A close up of a logo Description automatically generated](media/3a5e0f1ca1d616bb4f7af6a5d7c02c90.png)
+    ![](images/Screenshot_15763494672.png)
 
 -   **Waste Classification UI:**
 
@@ -47,17 +47,17 @@ Right now, Save Her serves users with 2 features which is:
     automatically classify the type of garbage via images not only for an easier
     waste disposal but also acknowledge people about waste sorting.
 
-    ![A screenshot of a cell phone Description automatically generated](media/be2724331d3c7b11774e29e5e071e65e.png)
+    ![](images/Screenshot_1576349480.png)
 
-    ![A screenshot of a cell phone Description automatically generated](media/8c607f46b7884717bbd0076333545f0a.png)
+    ![](images/Screenshot_1576349482.png)
 
-    ![A picture containing cup Description automatically generated](media/236af2b48c6b6d9cfc8f08bfad5dfbbc.png)
+    ![](images/Screenshot_1576349494.png)
 
-    ![A picture containing glass, container Description automatically generated](media/b4fa4a142095122344b7072ba6df7cb7.png)
+    ![](images/Screenshot_1576349627.png)
 
-    ![A picture containing glass Description automatically generated](media/6003d78e6692db813f1eb58b42ba2058.png)
+    ![](images/Screenshot_1576349740.png)
 
-    ![A screenshot of fruit and vegetable stand Description automatically generated](media/b443c2982dbedd071253be80143e4e10.png)
+    ![](images/Screenshot_1576349724.png)
 
 **How the platform is structured:**
 
