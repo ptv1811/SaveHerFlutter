@@ -28,11 +28,11 @@ Right now, Save Her serves users with 2 features which is:
 
 -   **From 6PM to 6AM:**
 
-    ![](images/Screenshot_1576349394.png)
+    <img src="images/Screenshot_1576349394.png" width="400">
 
-    ![](images/Screenshot_1576349414.png)
+    <img src="images/Screenshot_1576349414.png" width="400">
 
-    ![](images/Screenshot_1576349467.png)
+    <img src="images/Screenshot_1576349467.png" width="400">
 
 -   **Air Pollution information and weather forecast:**
 
@@ -47,17 +47,17 @@ Right now, Save Her serves users with 2 features which is:
     automatically classify the type of garbage via images not only for an easier
     waste disposal but also acknowledge people about waste sorting.
 
-    ![](images/Screenshot_1576349480.png)
+    <img src="images/Screenshot_1576349480.png" width="400">
 
-    ![](images/Screenshot_1576349482.png)
+    <img src="images/Screenshot_1576349482.png" width="400">
 
-    ![](images/Screenshot_1576349494.png)
+    <img src="images/Screenshot_1576349494.png" width="400">
 
-    ![](images/Screenshot_1576349627.png)
+    <img src="images/Screenshot_1576349627.png" width="400">
 
-    ![](images/Screenshot_1576349740.png)
+    <img src="images/Screenshot_1576349740.png" width="400">
 
-    ![](images/Screenshot_1576349724.png)
+    <img src="images/Screenshot_1576349724.png" width="400">
 
 **How the platform is structured:**
 
@@ -98,8 +98,10 @@ Right now, Save Her serves users with 2 features which is:
 
 **Contributor:**
 
-![](media/a1991a3b0610628480cf6105baae0036.jpg)
+<img src="images/van.jpg" width="400">
 
-![](media/0da84b401521ef6db202e373d8210e3e.jpg)
+**Luong The Van**
 
-**Luong The Van Luu Ngoc Phuong Thanh**
+<img src="images/thanh.jpg" width="400">
+
+**Luu Ngoc Phuong Thanh**
