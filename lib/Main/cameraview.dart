@@ -31,6 +31,7 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
   static String entityId;
   static String confidence;
   String assets;
+  String advide;
 
   Widget _result;
   String type;
@@ -233,6 +234,7 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
                     type="Recyclable";
                     assets="assets/image/recyclable.png";
                     _color=Colors.blue;
+                    advide="You should throw it to the blue trash bin";
                   }
                 }
 
@@ -241,6 +243,7 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
                     type="Organic";
                     assets="assets/image/organic.png";
                     _color=Colors.green;
+                    advide="You should throw it to the green trash bin";
                   }
                 }
                 _widget= Container(
@@ -311,7 +314,7 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
                             fontSize: ScreenUtil.getInstance().setSp(50)
                         ),),
 
-                      Text("You should throw it to the green trash bin",
+                      Text(advide,
                         style: TextStyle(
                             color: Colors.black,
                             fontFamily: "Avo",
@@ -353,7 +356,7 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
       height: double.infinity,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: _color
+        color: Colors.red
       ),
       child: _decideView()
     );
