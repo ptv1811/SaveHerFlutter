@@ -82,11 +82,11 @@ Right now, Save Her serves users with 2 features which is:
 
 ***Morning***
 
-<img src="images/demo_morning.gif" width="500">
+<img src="images/demo_morning.gif" width="300">
 
 ***Evening***
 
-<img src="images/demo_night.gif" width="500">
+<img src="images/demo_night.gif" width="300">
 
 **Reference:**
 
