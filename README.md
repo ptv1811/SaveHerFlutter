@@ -55,9 +55,9 @@ Right now, Save Her serves users with 2 features which is:
 
     <img src="images/Screenshot_1576349627.png" width="400">
 
-    <img src="images/Screenshot_1576349740.png" width="400">
+    <img src="images/Screenshot_1576385258.png" width="400">
 
-    <img src="images/Screenshot_1576349724.png" width="400">
+    <img src="images/Screenshot_1576385104.png" width="400">
 
 **How the platform is structured:**
 
