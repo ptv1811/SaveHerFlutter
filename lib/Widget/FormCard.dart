@@ -5,6 +5,7 @@ import 'ShowUp.dart';
 import 'package:save_her/Main/homepage.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:save_her/Tools/HexColor.dart';
+import 'package:save_her/Widget/AnimatedText.dart';
 
 
 class FormCard extends StatefulWidget {
@@ -28,9 +29,13 @@ class _FormCardState extends State<FormCard> with SingleTickerProviderStateMixin
   static bool passwordvisible=true;
   static bool cpasswordvisible=true;
 
+  final FirebaseAuth auth=FirebaseAuth.instance;
+
   double _height=500;
   double _hofcontain=275;
   int count=1;
+  double begin=1.0;
+  double end=0.0;
 
   Color _background_color, _button_color, _string_color;
   Color _lower_color, _bottom_navigation_color;
@@ -40,14 +45,12 @@ class _FormCardState extends State<FormCard> with SingleTickerProviderStateMixin
   final FlareControls controls = FlareControls();
 
   DateTime now;
-
-
   @override
   void initState() {
     super.initState();
 
     animationController= AnimationController(duration: Duration(seconds: 1),vsync: this);
-    animation= Tween(begin: 1.0,end: 0.0).animate(CurvedAnimation(
+    animation= Tween(begin: begin,end: end).animate(CurvedAnimation(
         parent: animationController,
         curve: Curves.fastOutSlowIn
     ));
@@ -70,6 +73,13 @@ class _FormCardState extends State<FormCard> with SingleTickerProviderStateMixin
       _lower_color=HexColor("#264E68");
       _bottom_navigation_color=HexColor("#98bcd3");
     }
+  }
+
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -187,6 +197,8 @@ class _FormCardState extends State<FormCard> with SingleTickerProviderStateMixin
                             child: TextFormField(
                               controller: _cpasswordcapture,
                               obscureText: cpasswordvisible,
+                              autofocus: false,
+                              validator: (value)=> value.isEmpty ?"Confirm password cannot be empty":null,
                               decoration: InputDecoration(
                                   contentPadding: EdgeInsets.all(20),
                                   labelText: "Confirm password",
@@ -246,12 +258,13 @@ class _FormCardState extends State<FormCard> with SingleTickerProviderStateMixin
                               },
                               child: ShowUp(
                                 delay: 500,
-                                child: Text(_signup,
+                                child: AnimatedText(text: _signup,
                                   style: TextStyle(
                                       color: _string_color,
                                       fontSize: ScreenUtil.getInstance().setSp(35),
                                       fontFamily: "Avo"
                                   ),
+                                  textRotation: AnimatedTextRotation.up,
                                 ),
                               )
                           )
@@ -289,17 +302,8 @@ class _FormCardState extends State<FormCard> with SingleTickerProviderStateMixin
                                   password=_passwordcapture.text;
 
                                   if (email.isNotEmpty && password.isNotEmpty){
-                                    FirebaseAuth.instance.signInWithEmailAndPassword(email: email,
-                                        password: password);
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context)=> HomePage(
-                                          controls: controls,
-                                          flare_animation: _flare_animation,
-                                          background_color: _background_color,
-                                          low_color: _lower_color,
-                                          bottom_navigation: _bottom_navigation_color,)
-                                        )
-                                    );
+
+                                    signIn(email,password);
                                   }
                                   else _EmptyFieldDialog();
                                 }
@@ -323,6 +327,9 @@ class _FormCardState extends State<FormCard> with SingleTickerProviderStateMixin
                                         )
                                     );
                                   }
+                                  else{
+                                    _SignUpDialog();
+                                  }
 
                                 }
                               },
@@ -333,7 +340,7 @@ class _FormCardState extends State<FormCard> with SingleTickerProviderStateMixin
                                     fontSize: ScreenUtil.getInstance().setSp(35),
                                     fontFamily: "Avo",
                                     color: Colors.white,),
-                                  child: Text(_signin,
+                                  child: AnimatedText(text: _signin,
                                     style: TextStyle(
                                       fontSize: ScreenUtil.getInstance().setSp(35),
                                       fontFamily: "Avo",
@@ -346,6 +353,8 @@ class _FormCardState extends State<FormCard> with SingleTickerProviderStateMixin
                           ),
                         ),
                       )
+
+                      
                     ],
                   ),
                   SizedBox(
@@ -397,5 +406,109 @@ class _FormCardState extends State<FormCard> with SingleTickerProviderStateMixin
         );
       }
     );
+  }
+
+  void _SignUpDialog(){
+    showDialog(
+        context: context,
+        builder:(BuildContext context){
+          return AlertDialog(
+              title: new Text("Something went wrong",
+                style: TextStyle(
+                    fontSize: ScreenUtil.getInstance().setSp(40),
+                    fontFamily: "Avo",
+                    color:_button_color
+                ),
+              ),
+              content: new Text("Please try again!",
+                style: TextStyle(
+                    fontSize: ScreenUtil.getInstance().setSp(30),
+                    fontFamily: "Avo",
+                    color: Colors.black
+                ),),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("Okay",
+                    style: TextStyle(
+                        fontFamily: "Avo",
+                        fontSize: ScreenUtil.getInstance().setSp(30),
+                        color: _button_color
+                    ),),
+                  onPressed: (){
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              )
+          );
+        }
+    );
+  }
+
+
+  void _SignInFailedDialog(){
+    showDialog(
+        context: context,
+        builder:(BuildContext context){
+          return AlertDialog(
+              title: new Text("Oops",
+                style: TextStyle(
+                    fontSize: ScreenUtil.getInstance().setSp(40),
+                    fontFamily: "Avo",
+                    color:_button_color
+                ),
+              ),
+              content: new Text("Wrong username or password",
+                style: TextStyle(
+                    fontSize: ScreenUtil.getInstance().setSp(30),
+                    fontFamily: "Avo",
+                    color: Colors.black
+                ),),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("Try again",
+                    style: TextStyle(
+                        fontFamily: "Avo",
+                        fontSize: ScreenUtil.getInstance().setSp(30),
+                        color: _button_color
+                    ),),
+                  onPressed: (){
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              )
+          );
+        }
+    );
+  }
+
+  void signIn(String email, String password) async{
+    var user;
+
+    try{
+      user=await auth.signInWithEmailAndPassword(email: email, password: password);
+    }catch(e){
+      print(e);
+    }finally{
+      if (user!=null){
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context)=> HomePage(
+              controls: controls,
+              flare_animation: _flare_animation,
+              background_color: _background_color,
+              low_color: _lower_color,
+              bottom_navigation: _bottom_navigation_color,)
+            )
+        );
+      }
+      else{
+        _SignInFailedDialog();
+      }
+    }
   }
 }

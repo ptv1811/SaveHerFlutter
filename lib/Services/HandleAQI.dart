@@ -89,7 +89,7 @@ class _HandleAQIState extends State<HandleAQI> {
 
                         Positioned(
                           top: 45,
-                          left: 13,
+                          left: 15,
                           child: Text("${snapshot.data.data.current.pollution.aqius}",
                             style: TextStyle(
                               color: Colors.black,

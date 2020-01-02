@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
 
                 Container(
                   width: double.infinity,
-                  height: ScreenUtil.getInstance().setHeight(2000),
+                  height: ScreenUtil.getInstance().setHeight(950),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(topRight: Radius.circular(45.0), topLeft: Radius.circular(45.0)),

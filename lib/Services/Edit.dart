@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:save_her/Main/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 class EditAccount extends StatefulWidget {
   @override
   _EditAccountState createState() => _EditAccountState();
@@ -46,6 +47,7 @@ class _EditAccountState extends State<EditAccount> with SingleTickerProviderStat
 
                 GestureDetector(
                   onTap: (){
+                    FirebaseAuth.instance.signOut();
                     Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>Login()));
                     setState(() {
 

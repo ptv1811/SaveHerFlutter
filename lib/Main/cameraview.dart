@@ -91,7 +91,7 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
     });
 
 
-   // Navigator.pop(context);
+    // Navigator.pop(context);
 
   }
 
@@ -247,84 +247,84 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
                   }
                 }
                 _widget= Container(
-                  key: ValueKey(2),
-                  width: ScreenUtil.getInstance().setWidth(700),
-                  height: ScreenUtil.getInstance().setHeight(520),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            offset: Offset(0.0,15.0),
-                            blurRadius: 15.0
+                    key: ValueKey(2),
+                    width: ScreenUtil.getInstance().setWidth(700),
+                    height: ScreenUtil.getInstance().setHeight(520),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black12,
+                              offset: Offset(0.0,15.0),
+                              blurRadius: 15.0
+                          ),
+                          BoxShadow(
+                              color: Colors.black12,
+                              offset: Offset(0.0,-10.0),
+                              blurRadius: 10.0
+                          )
+                        ]
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          height: ScreenUtil.getInstance().setHeight(15),
                         ),
-                        BoxShadow(
-                            color: Colors.black12,
-                            offset: Offset(0.0,-10.0),
-                            blurRadius: 10.0
-                        )
-                      ]
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(
-                        height: ScreenUtil.getInstance().setHeight(15),
-                      ),
-                      Text("What we found in your image is",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "Avo",
-                          fontSize: ScreenUtil.getInstance().setSp(30.0)
+                        Text("What we found in your image is",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "Avo",
+                              fontSize: ScreenUtil.getInstance().setSp(30.0)
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: ScreenUtil.getInstance().setHeight(10.0),
-                      ),
-                      Text("$text",
-                      style: TextStyle(
-                        color: _color,
-                        fontSize: ScreenUtil.getInstance().setSp(40),
-                        fontFamily: "Avo"
-                      ),),
-                      SizedBox(
-                        height: ScreenUtil.getInstance().setHeight(1.0),
-                      ),
-                      Text("With the probability of",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: "Avo",
-                            fontSize: ScreenUtil.getInstance().setSp(30.0)
+                        SizedBox(
+                          height: ScreenUtil.getInstance().setHeight(10.0),
                         ),
-                      ),
-                      SizedBox(
-                        height: ScreenUtil.getInstance().setHeight(10.0),
-                      ),
-                      Text("$confidence %",
-                        style: TextStyle(
-                            color: _color,
-                            fontSize: ScreenUtil.getInstance().setSp(40),
-                            fontFamily: "Avo"
-                        ),),
-                      Text("$type",
-                        style: TextStyle(
-                            color: _color,
-                            fontFamily: "Avo",
-                            fontSize: ScreenUtil.getInstance().setSp(50)
-                        ),),
+                        Text("$text",
+                          style: TextStyle(
+                              color: _color,
+                              fontSize: ScreenUtil.getInstance().setSp(40),
+                              fontFamily: "Avo"
+                          ),),
+                        SizedBox(
+                          height: ScreenUtil.getInstance().setHeight(1.0),
+                        ),
+                        Text("With the probability of",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "Avo",
+                              fontSize: ScreenUtil.getInstance().setSp(30.0)
+                          ),
+                        ),
+                        SizedBox(
+                          height: ScreenUtil.getInstance().setHeight(10.0),
+                        ),
+                        Text("$confidence %",
+                          style: TextStyle(
+                              color: _color,
+                              fontSize: ScreenUtil.getInstance().setSp(40),
+                              fontFamily: "Avo"
+                          ),),
+                        Text("$type",
+                          style: TextStyle(
+                              color: _color,
+                              fontFamily: "Avo",
+                              fontSize: ScreenUtil.getInstance().setSp(50)
+                          ),),
 
-                      Text(advide,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: "Avo",
-                            fontSize: ScreenUtil.getInstance().setSp(20)
-                        ),),
+                        Text(advide,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "Avo",
+                              fontSize: ScreenUtil.getInstance().setSp(20)
+                          ),),
 
-                      Image.asset(assets,width: ScreenUtil.getInstance().setWidth(150),
-                      height: ScreenUtil.getInstance().setHeight(150),)
-                    ],
-                  )
+                        Image.asset(assets,width: ScreenUtil.getInstance().setWidth(150),
+                          height: ScreenUtil.getInstance().setHeight(150),)
+                      ],
+                    )
                 );
               });
 
@@ -333,7 +333,7 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
             child: AnimatedSwitcher(
               duration: Duration(seconds: 1),
               transitionBuilder: (Widget child, Animation<double> animation)=>
-              ScaleTransition(child: child,scale: animation,),
+                  ScaleTransition(child: child,scale: animation,),
               child: _widget,
             ),
           )
@@ -351,14 +351,14 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: Duration(seconds: 1),
-      curve: Curves.easeOut,
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.red
-      ),
-      child: _decideView()
+        duration: Duration(seconds: 1),
+        curve: Curves.easeOut,
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Colors.red
+        ),
+        child: _decideView()
     );
   }
 
