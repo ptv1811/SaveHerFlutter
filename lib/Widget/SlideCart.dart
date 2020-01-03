@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
 import 'package:page_transition/page_transition.dart';
 import 'package:save_her/Main/sort_waste.dart';
+import 'package:save_her/Main/cameraview.dart';
 
 class SlidingCardViews extends StatefulWidget {
   @override

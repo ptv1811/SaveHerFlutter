@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'Main/login.dart';
 
 ThemeData buildTheme() {
@@ -17,11 +18,14 @@ ThemeData buildTheme() {
   );
 }
 
-void main() => runApp(MaterialApp(
-  theme: buildTheme(),
-  home: Login(),
-  debugShowCheckedModeBanner: false,
-));
+void main() {
+    runApp(MaterialApp(
+      theme: buildTheme(),
+      home: Login(),
+      debugShowCheckedModeBanner: false,
+    ));
+}
+
 
 
 

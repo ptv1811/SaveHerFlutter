@@ -4,8 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:mlkit/mlkit.dart';
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
+import 'package:tflite/tflite.dart';
 import 'dart:math';
 
 class CameraScreen extends StatefulWidget {
@@ -18,18 +17,12 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
   Animation<double> animation;
   AnimationController animationController;
 
-  File image;
   int a=0;
   double height=150;
   double width=500;
   Color _color=Colors.red;
 
-  List<String> Recyclable= ["Jewellery","Tableware","Porcelain","Paper"];
-  List<String> Organic=["Vegetable","Bird","Fish","Fruit"];
 
-  static String text;
-  static String entityId;
-  static String confidence;
   String assets;
   String advide;
 
@@ -66,10 +59,24 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
     ),
   );
 
+  List _outputs;
+  File _image;
+  bool _loading = false;
+
 
   @override
   void initState() {
     super.initState();
+
+    _loading = true;
+
+    loadModel().then((value) {
+      setState(() {
+        _loading = false;
+      });
+    });
+
+
     animationController= AnimationController(duration: Duration(seconds: 1),vsync: this);
     animation= Tween(begin: 1.0,end: 0.0).animate(CurvedAnimation(
         parent: animationController,
@@ -84,31 +91,51 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
   }
 
 
-  _openGallery() async{
-    File picture= await ImagePicker.pickImage(source: ImageSource.gallery);
+  pickImageFromGal() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    if (image == null) return null;
     setState(() {
-      image=picture;
+      _loading = true;
+      _image = image;
     });
-
-
-    // Navigator.pop(context);
-
+    classifyImage(image);
   }
 
-  _openCamera() async{
-    File picture= await ImagePicker.pickImage(source: ImageSource.camera);
+
+  _pickImageFromCam() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    if (image == null) return null;
     setState(() {
-      image=picture;
+      _loading = true;
+      _image = image;
     });
-    image= await image.copy("$_localpath/save_${a+=1}.jpg");
+    classifyImage(image);
+  }
 
+  classifyImage(File image) async {
+    var output = await Tflite.runModelOnImage(
+      path: image.path,
+      numResults: 2,
+      threshold: 0.5,
+      imageMean: 127.5,
+      imageStd: 127.5,
+    );
+    setState(() {
+      _loading = false;
+      _outputs = output;
+    });
+  }
 
-    //Navigator.pop(context);
+  loadModel() async {
+    await Tflite.loadModel(
+      model: "assets/model_unquant.tflite",
+      labels: "assets/labels.txt",
+    );
   }
 
 
   Widget _decideView(){
-    if (image==null){
+    if (_image==null){
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -130,7 +157,7 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
           ),
           InkWell(
               onTap: (){
-                _openGallery();
+                pickImageFromGal();
               },
               child: Container(
                 width: ScreenUtil.getInstance().setWidth(500),
@@ -168,7 +195,7 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
 
           InkWell(
               onTap: (){
-                _openCamera();
+                _pickImageFromCam();
               },
               child: Container(
                 width: ScreenUtil.getInstance().setWidth(500),
@@ -204,9 +231,6 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
     }
     else {
 
-      detectLabels().then((_){
-
-      });
 
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -219,7 +243,7 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
             width: ScreenUtil.getInstance().setWidth(500),
             height: ScreenUtil.getInstance().setHeight(700),
 
-            child: Image.file(image,width: 400,height: 500,),
+            child: Image.file(_image,width: 400,height: 500,),
           ),
           SizedBox(
             height: ScreenUtil.getInstance().setHeight(0),
@@ -229,23 +253,22 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
             onTap: (){
               setState(() {
 
-                for (int i=0; i< Recyclable.length;i++){
-                  if (text==Recyclable[i]){
+
+                  if (_outputs[0]["label"].toString()=="1 Recyclable"){
                     type="Recyclable";
                     assets="assets/image/recyclable.png";
                     _color=Colors.blue;
                     advide="You should throw it to the blue trash bin";
                   }
-                }
 
-                for (int i=0; i< Organic.length;i++){
-                  if (text==Organic[i]){
+
+                  if (_outputs[0]["label"].toString()=="0 Organic"){
                     type="Organic";
                     assets="assets/image/organic.png";
                     _color=Colors.green;
                     advide="You should throw it to the green trash bin";
                   }
-                }
+
                 _widget= Container(
                     key: ValueKey(2),
                     width: ScreenUtil.getInstance().setWidth(700),
@@ -282,12 +305,7 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
                         SizedBox(
                           height: ScreenUtil.getInstance().setHeight(10.0),
                         ),
-                        Text("$text",
-                          style: TextStyle(
-                              color: _color,
-                              fontSize: ScreenUtil.getInstance().setSp(40),
-                              fontFamily: "Avo"
-                          ),),
+
                         SizedBox(
                           height: ScreenUtil.getInstance().setHeight(1.0),
                         ),
@@ -301,7 +319,7 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
                         SizedBox(
                           height: ScreenUtil.getInstance().setHeight(10.0),
                         ),
-                        Text("$confidence %",
+                        Text("${_outputs[0]["confidence"]*100} %",
                           style: TextStyle(
                               color: _color,
                               fontSize: ScreenUtil.getInstance().setSp(40),
@@ -314,11 +332,15 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
                               fontSize: ScreenUtil.getInstance().setSp(50)
                           ),),
 
+                        SizedBox(
+                          height: ScreenUtil.getInstance().setHeight(20.0),
+                        ),
+
                         Text(advide,
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: "Avo",
-                              fontSize: ScreenUtil.getInstance().setSp(20)
+                              fontSize: ScreenUtil.getInstance().setSp(30)
                           ),),
 
                         Image.asset(assets,width: ScreenUtil.getInstance().setWidth(150),
@@ -338,10 +360,6 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
             ),
           )
 
-
-
-
-
         ],
       );
 
@@ -350,32 +368,25 @@ class _CameraScreenState extends State<CameraScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-        duration: Duration(seconds: 1),
-        curve: Curves.easeOut,
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            color: Colors.red
-        ),
-        child: _decideView()
+    return Scaffold(
+      body: AnimatedContainer(
+          duration: Duration(seconds: 1),
+          curve: Curves.easeOut,
+          height: double.infinity,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: _color
+          ),
+          child: _decideView()
+      ),
     );
   }
 
-  Future<void> detectLabels()async{
-    final FirebaseVisionImage visionImage = FirebaseVisionImage.fromFile(image);
-    final ImageLabeler labeler = FirebaseVision.instance.imageLabeler();
-    final List<ImageLabel> labels = await labeler.processImage(visionImage);
-
-    for (ImageLabel label in labels) {
-
-      text = label.text;
-      entityId = label.entityId;
-      confidence = (label.confidence*100).toStringAsFixed(1);
-    }
-
-    labeler.close();
+  @override
+  void dispose() {
+    Tflite.close();
+    animationController.dispose();
+    super.dispose();
   }
-
 
 }
