@@ -101,13 +101,3 @@ Right now, Save Her serves users with 2 features which is:
 -   Air Pollution Information and weather forecast by Air Visual.
 
 -   Curved Navigation Bar by <rafbednarczuk@gmail.com>.
-
-**Contributor:**
-
-<img src="images/van.jpg" width="400">
-
-**Luong The Van**
-
-<img src="images/thanh.jpg" width="400">
-
-**Luu Ngoc Phuong Thanh**
