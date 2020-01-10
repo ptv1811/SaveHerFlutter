@@ -101,3 +101,6 @@ Right now, Save Her serves users with 2 features which is:
 -   Air Pollution Information and weather forecast by Air Visual.
 
 -   Curved Navigation Bar by <rafbednarczuk@gmail.com>.
+
+**Download APK for faster installation:**
+-   https://gofile.io/?c=uTmHjh
